@@ -1,6 +1,7 @@
 from datetime import date
 
 import pytest
+from django.core.exceptions import ValidationError
 
 from apps.invoices.models import Invoice
 from tests.factories import InvoiceFactory, VendorFactory
@@ -177,8 +178,6 @@ def test_paid_invoice_cannot_be_edited_or_deleted(client_for, finance_admin):
 def test_paid_invoice_cannot_be_saved_through_the_model(finance_admin):
     invoice = InvoiceFactory(created_by=finance_admin, status=Invoice.Status.PAID)
     invoice.invoice_no = "CHANGED"
-
-    from django.core.exceptions import ValidationError
 
     with pytest.raises(ValidationError):
         invoice.save()

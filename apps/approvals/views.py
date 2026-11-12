@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import extend_schema
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,6 +26,7 @@ class InvoiceActionView(APIView):
     serializer_class = ActionSerializer
     service = None
 
+    @extend_schema(request=ActionSerializer, responses=InvoiceSerializer)
     def post(self, request, pk):
         invoice = get_object_or_404(organization_invoices(request), pk=pk)
         data = ActionSerializer(data=request.data)
