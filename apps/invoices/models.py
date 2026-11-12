@@ -33,6 +33,7 @@ class Invoice(models.Model):
         "accounts.User", on_delete=models.PROTECT, related_name="created_invoices"
     )
     submitted_at = models.DateTimeField(null=True, blank=True)
+    last_reminded_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

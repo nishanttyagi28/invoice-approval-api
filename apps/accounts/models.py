@@ -15,6 +15,9 @@ class Organization(models.Model):
         default=Decimal("50000.00"),
         help_text="Invoices with a total above this amount need two different approvers.",
     )
+    webhook_url = models.URLField(
+        blank=True, help_text="Optional URL that receives a POST for pending invoice reminders."
+    )
 
     def __str__(self):
         return self.name
